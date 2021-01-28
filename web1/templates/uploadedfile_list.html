@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}上传文件列表{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    <form enctype="multipart/form-data" id="upload_project_info">
+    <div class="modal fade" id="bulk_uploadcase" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">UIH Interface Assembler</h4>
+                </div>
+                <div class="modal-body">
+                    <input name="upload" id="uploadfile" type="file" class="file-loading" multiple/>
+                    <div id="kartik-file-errors"></div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group col-md-8" style="margin-left: 15px">
+                        <div class="input-group-addon" style="color: #0a628f">所属项目</div>
+                        <select id='project' name="project" class="form-control"
+                                onchange="auto_load('#upload_project_info', '/api/get_project_info/', '#upload_belong_module_id', 'module')">
+                            <option value="请选择">请选择</option>
+                            {% for foo in project %}
+                                <option value="{{ foo.project_name }}">{{ foo.project_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group col-md-8" style="margin-left: 15px">
+                        <div class="input-group-addon" style="color: #0a628f">所属模块</div>
+                        <select id="upload_belong_module_id" name="module" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+    <div class="am-modal am-modal-confirm" id="my-invalid">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">UIH Interface Assembler</div>
+            <div class="am-modal-bd">
+                确认删除？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="admin-biaogelist">
+        <div class="listbiaoti am-cf">
+            <ul class="am-icon-flag on"> 文件列表</ul>
+            <dl class="am-icon-home" style="float: right;"> 当前位置： 文件管理 > <a href="#">文件展示</a></dl>
+        </div>
+
+        <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+            <form id="pro_filter" method="post" action="/api/file_upload/1/">
+                <ul>
+                    <li style="padding-top: 5px">
+                        <label>所属项目</label>
+                    </li>
+                    <li style="padding-top: 5px">
+                        <select name="project" class="am-input-zm am-input-xm"
+                                onchange="auto_load('#pro_filter', '/api/add_case/', '#module', 'module')">
+                            <option value="{{ info.belong_project }}"
+                                    selected>{{ info.belong_project }}</option>
+                            {% for foo in project %}
+                                {% ifnotequal info.belong_project foo.project_name %}
+                                    <option value="{{ foo.project_name }}">{{ foo.project_name }}</option>
+                                {% endifnotequal %}
+
+                            {% endfor %}
+
+                            {% if info.belong_project != 'All' %}
+                                <option value="All">All</option>
+                            {% endif %}
+                        </select>
+                    </li>
+                    <li style="padding-top: 5px">
+                    <label>所属模块</label>
+                    </li>
+                    <li style="padding-top: 5px">
+                        <select name="module" class=" am-input-zm am-input-xm" id="module">
+                            <option selected value="{{ info.belong_module_id }}">{{ info.belong_module }}</option>
+                        </select>
+                    </li>
+                    <!--li style="padding-top: 5px"><input value="{{ info.file_name }}" type="text" name="file_name"
+                                                        class="am-input-sm am-input-xm"
+                                                        placeholder="文件名"/></li>
+                    <li-->
+                        <button style="padding-top: 5px; margin-top: 9px"
+                                class="am-btn am-radius am-btn-xs am-btn-success">搜索
+                        </button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+
+        <form class="am-form am-g" id='module_list' name="module_list" method="post">
+            <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped" style = "table-layout:fixed;word-break:break-all">
+                <thead>
+                <tr class="am-success">
+                    <th width="5%" class="table-title">序号</th>
+                    <th width="35%" class="table-type">文件名称</th>
+                    <th width="10%" class="table-type">所属项目</th>
+                    <th width="10%" class="table-type">所属模块</th>
+                    <th width="10%" class="table-type">上传人员</th>
+                    <th width="15%" class="table-date">上传日期</th>
+                    <th width="5%" class="table-date">文件大小(KB)</th>
+                    <th width="10%" class="table-set">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for f in file_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ f.name }}</td>
+                    <td>{{ f.project.project_name }}</td>
+                    <td>{{ f.module.module_name }}</td>
+                    <td>{{ f.author }}</td>
+                    <td>{{ f.create_time }}</td>
+                    <td>{% widthratio f.file_size 1024 1 %}</td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <!--button type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                        data-am-popover="{content: '运行', trigger: 'hover focus'}"
+                                        onclick="run_test('{{ foo.id }}', '/api/run_test/', 'project')">
+                                    <span class="am-icon-play-circle-o"></span></button>
+                                <button type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+                                        data-am-popover="{content: '编辑', trigger: 'hover focus'}"
+                                        onclick="edit('{{ foo.id }}','{{ foo.project_name }}', '{{ foo.responsible_name }}'
+                                                , '{{ foo.test_user }}','{{ foo.dev_user }}', '{{ foo.publish_app }}'
+                                                , '{{ foo.simple_desc }}', '{{ foo.other_desc }}')"> <span
+                                        class="am-icon-pencil-square-o"></span></button-->
+                                <button type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-danger am-round"
+                                        data-am-popover="{content: '删除', trigger: 'hover focus'}"
+                                        onclick="invalid('{{ f.id }}')"><span
+                                        class="am-icon-trash-o"></span></button>
+                                <button type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-danger am-round"
+                                        data-am-popover="{content: '下载', trigger: 'hover focus'}"
+                                        onclick="download_file('{{ f.id }}')"><span
+                                        class="am-icon-download"></span></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-primary am-round am-btn-xs am-icon-plus"
+                        data-toggle="modal" data-target="#bulk_uploadcase">新增
+                </button>
+            </div>
+
+            <ul class="am-pagination am-fr">
+                {{ page_list }}
+            </ul>
+
+
+            <hr/>
+
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function invalid(id) {
+            $('#my-invalid').modal({
+                relatedTarget: this,
+                onConfirm: function () {
+                    del_data_ajax(id, '/api/file_upload/1/')
+                },
+                onCancel: function () {
+                }
+            });
+        }
+
+
+        $('#mode').change(function () {
+            if ($('#mode').val() == 'false') {
+                $('#report_name').removeAttr("readonly");
+            } else {
+                $('#report_name').attr('readonly', 'readonly');
+            }
+        });
+
+
+        $('#select_all').click(function () {
+            var isChecked = $(this).prop("checked");
+            $("input[name^='module']").prop("checked", isChecked);
+        })
+
+        function download_file(id) {
+            var $eleForm = $("<form method='get'></form>");
+            $eleForm.attr("action", "/api/download_file/"+id);
+            $(document.body).append($eleForm);
+            $eleForm.submit();
+        }
+    </script>
+
+{% endblock %}

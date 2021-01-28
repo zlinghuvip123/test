@@ -1,0 +1,23 @@
+import fileinput
+import os
+
+FILM_IP = os.getenv("portal_ip", "10.3.13.157")
+FILM_DB_IP = os.getenv("portal_db_ip", "10.3.13.157")
+FILM_PORT = os.getenv("portal_port", "8080")
+DBUSER = os.getenv("dbuser", "root")
+DBPWD = os.getenv("dbpassword", "111111")
+
+cfg = os.path.join(os.getcwd(), r"AutoTest-FILM\src\test\resources\config\config.properties")
+for line in fileinput.input(cfg, inplace=1, backup='.bak'):
+    if line.startswith("filmIP_PlaceHolder"):
+        line = "filmIP_PlaceHolder=%s\n" %(FILM_IP)
+    elif line.startswith("filmDbIP_PlaceHolder"):
+        line = "filmDbIP_PlaceHolder=%s\n" %(FILM_DB_IP)
+    elif line.startswith("filmPort_PlaceHolder"):
+        line = "filmPort_PlaceHolder=%s\n" %(FILM_PORT)
+    elif line.startswith("defaultDbAdmin"):
+        line = "defaultDbAdmin=%s\n" %(DBUSER)
+    elif line.startswith("defaultDbPwd"):
+        line = "defaultDbPwd=%s\n" %(DBPWD)
+    print line,
+

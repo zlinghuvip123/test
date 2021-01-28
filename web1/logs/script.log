@@ -1,0 +1,189 @@
+[2019-10-21 10:32:36,768] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-21 10:59:26,415] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: dbhost
+[2019-10-21 11:20:46,095] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-21 11:29:37,635] [HttpRunnerManager:105] [views:log_out] [INFO]- yuhua.zhang退出
+[2019-10-21 11:29:38,891] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-22 10:31:46,673] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-23 09:18:34,302] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-23 09:18:52,627] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: dbhost
+[2019-10-23 11:17:34,103] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-24 14:30:44,030] [HttpRunnerManager:66] [views:login] [INFO]- test 登录成功
+[2019-10-24 14:33:40,588] [HttpRunnerManager:66] [views:login] [INFO]- test 登录成功
+[2019-10-24 14:35:28,103] [HttpRunnerManager:66] [views:login] [INFO]- test 登录成功
+[2019-10-24 14:40:32,830] [HttpRunnerManager:66] [views:login] [INFO]- test 登录成功
+[2019-10-24 16:58:58,500] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-24 17:12:00,880] [HttpRunnerManager:105] [views:log_out] [INFO]- yuhua.zhang退出
+[2019-10-24 17:12:02,087] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-24 17:13:11,269] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/file_upload/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\HttpRunnerManager\activator.py", line 15, in process
+    result = fun(request, index) if index else fun(request)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\views.py", line 48, in wrapper
+    return func(request, *args, **kwargs)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\views.py", line 947, in file_upload
+    project = ProjectInfo.objects.get_pro_name(project_name, False)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\managers.py", line 55, in get_pro_name
+    return self.get(project_name__exact=pro_name)
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 403, in get
+    self.model._meta.object_name
+ApiManager.models.DoesNotExist: ProjectInfo matching query does not exist.
+[2019-10-24 17:13:22,034] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/file_upload/
+Traceback (most recent call last):
+  File "D:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\HttpRunnerManager\activator.py", line 15, in process
+    result = fun(request, index) if index else fun(request)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\views.py", line 48, in wrapper
+    return func(request, *args, **kwargs)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\views.py", line 947, in file_upload
+    project = ProjectInfo.objects.get_pro_name(project_name, False)
+  File "F:\UIH_DAPENG\Test\CI\httprunner\web\ApiManager\managers.py", line 55, in get_pro_name
+    return self.get(project_name__exact=pro_name)
+  File "D:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Python36\lib\site-packages\django\db\models\query.py", line 403, in get
+    self.model._meta.object_name
+ApiManager.models.DoesNotExist: ProjectInfo matching query does not exist.
+[2019-10-24 17:16:38,071] [HttpRunnerManager:105] [views:log_out] [INFO]- yuhua.zhang退出
+[2019-10-24 17:16:39,148] [HttpRunnerManager:66] [views:login] [INFO]- yuhua.zhang 登录成功
+[2019-10-25 20:35:32,552] [HttpRunnerManager:66] [views:login] [INFO]- test 登录成功
+[2019-11-18 15:25:39,465] [HttpRunnerManager:71] [views:login] [INFO]- user 登录失败, 请检查用户名或者密码
+[2019-11-18 15:25:48,755] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-11-27 16:34:36,700] [HttpRunnerManager:105] [views:log_out] [INFO]- test退出
+[2019-11-27 16:34:38,159] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-12-25 10:23:49,133] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-12-25 10:27:24,747] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-25 14:47:07,869] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-12-25 14:53:01,247] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-25 15:04:27,707] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+_mysql_exceptions.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+django.db.utils.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+[2019-12-25 15:05:41,931] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+_mysql_exceptions.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+django.db.utils.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+[2019-12-25 15:07:51,218] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+_mysql_exceptions.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+django.db.utils.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+[2019-12-25 15:09:36,348] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+_mysql_exceptions.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+django.db.utils.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+[2019-12-25 15:12:03,112] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+_mysql_exceptions.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+django.db.utils.IntegrityError: (1364, "Field 'author' doesn't have a default value")
+[2019-12-26 09:40:51,800] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-26 10:45:42,142] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: id
+[2019-12-26 10:49:27,380] [HttpRunnerManager:71] [views:login] [INFO]- root 登录失败, 请检查用户名或者密码
+[2019-12-26 10:51:59,261] [HttpRunnerManager:66] [views:login] [INFO]- penghua.xu 登录成功
+[2019-12-26 10:53:05,966] [HttpRunnerManager:71] [views:login] [INFO]- cs 登录失败, 请检查用户名或者密码
+[2019-12-26 10:58:25,357] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-26 11:09:02,472] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: robotname
+[2019-12-26 11:09:54,181] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: bussinesstype
+[2019-12-26 11:29:06,260] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+PermissionError: [WinError 5] 拒绝访问。: 'F:\\UIH_DAPENG\\Test\\CI\\httprunner\\web\\debugtalk.py'
+[2019-12-26 11:30:26,936] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-12-26 11:30:32,443] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+PermissionError: [WinError 5] 拒绝访问。: 'F:\\UIH_DAPENG\\Test\\CI\\httprunner\\web\\debugtalk.py'
+[2019-12-26 11:35:43,842] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 2741: invalid continuation byte
+[2019-12-26 11:35:47,438] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 2741: invalid continuation byte
+[2019-12-26 11:35:49,714] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 2741: invalid continuation byte
+[2019-12-26 11:35:52,630] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 2741: invalid continuation byte
+[2019-12-26 11:36:09,623] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 2741: invalid continuation byte
+[2019-12-26 11:39:45,259] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 2766: invalid start byte
+[2019-12-26 11:39:49,918] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/debugtalk/
+Traceback (most recent call last):
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb5 in position 2766: invalid start byte
+[2019-12-26 13:42:21,303] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: len
+[2019-12-26 13:42:28,222] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: len
+[2019-12-26 13:43:45,340] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: len
+[2019-12-26 13:47:03,000] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+httprunner.exceptions.VariableNotFound: len
+[2019-12-26 14:15:27,024] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-26 14:15:27,165] [HttpRunnerManager:66] [views:login] [INFO]- ruqi.zhang 登录成功
+[2019-12-26 14:48:41,161] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/run_test/
+Traceback (most recent call last):
+  File "<string>", line 1
+    {'test': {'request': {'url': '/v1/robot-manage/list', 'method': 'GET'}, 'name': '机器人查询_列表', 'validate': [{'length_equals': ['json', $ll]}], 'extract': [{'ll': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'variables': [{'asdf': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'setup_hooks': [], 'teardown_hooks': []}}
+                                                                                                                                        ^
+SyntaxError: invalid syntax
+[2019-12-26 14:53:54,948] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/edit_case/13/
+Traceback (most recent call last):
+  File "<string>", line 1
+    {'test': {'request': {'url': '/v1/robot-manage/list', 'method': 'GET'}, 'name': '机器人查询_列表', 'validate': [{'length_equals': ['json', $ll]}], 'extract': [{'ll': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'variables': [{'asdf': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'setup_hooks': [], 'teardown_hooks': []}}
+                                                                                                                                        ^
+SyntaxError: invalid syntax
+[2019-12-26 14:54:02,011] [django.request:118] [exception:handle_uncaught_exception] [ERROR]- Internal Server Error: /api/edit_case/13/
+Traceback (most recent call last):
+  File "<string>", line 1
+    {'test': {'request': {'url': '/v1/robot-manage/list', 'method': 'GET'}, 'name': '机器人查询_列表', 'validate': [{'length_equals': ['json', $ll]}], 'extract': [{'ll': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'variables': [{'asdf': '${selectSql("10.6.5.152", "root", "111111", "intelligentChatRobot", "SELECT count(*) from robot_manage where deleted = 0")}'}], 'setup_hooks': [], 'teardown_hooks': []}}
+                                                                                                                                        ^
+SyntaxError: invalid syntax
+[2019-12-26 17:33:15,389] [HttpRunnerManager:66] [views:login] [INFO]- linghu.zeng 登录成功
+[2019-12-26 18:28:59,685] [HttpRunnerManager:66] [views:login] [INFO]- penghua.xu 登录成功

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div id="log" class="admin-biaogelist">
+    <div class="admin-content">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl">
+                <strong class="am-text-primary am-text-lg">{{ type }}</strong>
+            </div>
+        </div>
+        <hr>
+        <div class="am-u-sm-12 am-u-sm-centered">
+            {% for log in logs %}
+              {% ifequal log.type 'error' %}
+                  <div class="am-text-danger">{{ log.content }}</div>
+              {% else %}
+                  <div class="am-text-success">{{ log.content }}</div>
+              {% endifequal %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('#log').scrollTop( $('#log')[0].scrollHeight );   //当页面加载时滚动条滚到最下面
+    });
+</script>
+{% endblock %}

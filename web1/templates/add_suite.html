@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block title %}Add Suite{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+    <div class=" admin-content">
+
+        <div class="admin-biaogelist">
+
+            <div style="margin-top: 20px">
+                <div style="float: left; width: 40%; height: auto">
+                    <form class="form-horizontal" id="form_message">
+
+                        <div class="form-group">
+                            <div class="input-group col-md-10 col-md-offset-1">
+                                <div class="input-group-addon" style="color: #0a628f">项目列表</div>
+                                <select id='belong_project' name="project" class="form-control"
+                                        onchange="auto_load('#form_message', '/api/add_case/', '#belong_module_id', 'module')">
+                                    <option value="请选择">请选择</option>
+                                    {% for foo in project %}
+                                        <option value="{{ foo.project_name }}">{{ foo.project_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group col-md-10 col-md-offset-1">
+                                <div class="input-group-addon" style="color: #0a628f">模块列表</div>
+                                <select id="belong_module_id" name="module" class="form-control"
+                                        onchange="auto_load('#form_message', '/api/add_case/', '#belong_case_id', 'case')">
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="input-group col-md-10 col-md-offset-1">
+                                <div class="input-group-addon" style="color: #0a628f">用例列表</div>
+                                <select multiple="multiple" size="25" id="belong_case_id" name="include"
+                                        class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+                <button id="add_to_right" style="margin-left: 4%; display: inline-block; margin-bottom: -50%">>>
+                </button>
+                <div id="right" style="float: right; width: 50%; margin-right: 1%;">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">Suite</div>
+                                <input type="text" name="suite_name" value="" class="form-control" id="suite_name"
+                                       placeholder="Suite Name">
+                            </div>
+                        </div>
+                        <button id="create_suite" type="button" class="btn btn-primary">Save Suite</button>
+                    </form>
+                    <table id="pre_case" class="am-table am-table-bordered am-table-radius am-table-striped">
+                        <thead>
+                            <tr class="am-success">
+                                <th class="table-title">序号</th>
+                                <th class="table-title">用例ID</th>
+                                <th class="table-type">用例名称</th>
+                                <th class="table-type">状态</th>
+                                <th width="163px" class="table-set">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+
+        $(function () {
+            $("#pre_case").sortable();
+            $("#pre_case").disableSelection();
+        });
+
+
+        $('#add_to_right').on('click', function () {
+            var id_list = [];
+            $("table tbody tr").each(function () {
+                id_list.push($(this).children('td').eq(1).text());
+            });
+            var include = $('#belong_case_id').val();
+            var tlength = $("table tbody tr").length;
+            for (var key in include) {
+                var case_id = include[key];
+                var case_name = $('#belong_case_id option[value="' + include[key] + '"]').text();
+                var index = $.inArray(case_id, id_list);
+                if (index >= 0) {
+                    myAlert("用例===" + case_name + "===已存在，请勿重复添加！");
+                    continue;
+                }
+                else {
+                    if (case_name !== '请选择') {
+                        var tr = "<tr id=\"test_"+ case_id +"\">" +
+                            "<td>" + ++tlength + "</td>" +
+                            "<td>" + case_id + "</td>" +
+                            "<td><a href=\"/api/edit_case/" + case_id + "\">"  + case_name + "</a></td>" +
+                            "<td>启用中</td>" +
+                            "<td>" + "<div class=\"am-btn-toolbar\">" +
+                            "<div class=\"am-btn-group am-btn-group-xs\">" +
+                            "<button id=\"btn_" + case_id + "\" type=\"button\"" +
+                            "class=\"am-btn am-btn-default am-btn-xs am-text-secondary am-round\"" +
+                            "onclick=\"disable_self(" + case_id + ")\">" +
+                            "<span id=\"span_" + case_id + "\" class=\"am-icon-toggle-on\"></span>" + "</button>" +
+                            "<button type=\"button\"" +
+                            "class=\"am-btn am-btn-default am-btn-xs am-text-danger am-round\"" +
+                            "data-am-popover=\"{content: '删除', trigger: 'hover focus'}\"" +
+                            "onclick=\"remove_self(" + case_id + ")\">" +
+                            "<span class=\"am-icon-trash-o\"></span>" +
+                            "</button>" +
+                            "</div>" +
+                            "</div>" +
+                            "</td>" +
+                            "</tr>"
+                        $("#pre_case").append(tr);
+                        id_list.push(case_id);
+                    }
+                }
+            }
+        });
+
+        $('#create_suite').on('click', function () {
+            var test_length = $('table tbody tr').length;
+            if ($('#suite_name').val() === '') {
+                myAlert('Suite Name不能为空啊');
+                return
+            }
+            if (test_length === 0) {
+                myAlert('用例为空！');
+                return
+            }
+            var include = [];
+            $("table tbody tr").each(function () {
+                include.push([$(this).children('td').eq(1).text(), $(this).children('td').eq(2).text(), $(this).children('td').eq(3).text()]);
+            });
+            const suite = {
+                'project': $("#belong_project option:selected").val(),
+                'include': include,
+                'suite_name': $('#suite_name').val()
+            };
+            $.ajax({
+                type: 'post',
+                url: '/api/add_suite/',
+                data: JSON.stringify(suite),
+                contentType: "application/json",
+                success: function (data) {
+                    if (data === 'session invalid') {
+                        window.location.href = "/api/login/";
+                    } else {
+                        if (data.indexOf('/api/') != -1) {
+                            window.location.href = data;
+                        } else {
+                            myAlert(data);
+                        }
+                    }
+                },
+                error: function () {
+                    myAlert('Sorry，服务器可能开小差啦, 请重试!');
+                }
+            });
+
+        });
+
+        function remove_self(case_id) {
+            $('#test_'+case_id).remove();
+        }
+
+        function disable_self(case_id) {
+            if ($('#test_'+case_id).children('td').eq(3).text() === '启用中') {
+                $('#test_' + case_id).children('td').eq(3).text("暂停中");
+                $('#test_' + case_id).children('td').eq(3).attr('style', 'background-color: red;');
+                $('#span_' + case_id).attr('class', "am-icon-toggle-off");
+            }
+            else {
+                $('#test_' + case_id).children('td').eq(3).text("启用中");
+                $('#span_' + case_id).attr('class', "am-icon-toggle-on");
+                $('#test_' + case_id).children('td').eq(3).attr('style', '');
+            }
+        }
+
+    </script>
+
+
+{% endblock %}
